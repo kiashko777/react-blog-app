@@ -9,6 +9,7 @@ const Home = () => {
 			{error && <div>{error}</div>}
 			{isLoading && <p>Loading...</p>}
 			{blogs && <BlogList blogs={blogs} title="All Blogs"/>}
+
 			{/* <BlogList
         blogs={blogs.filter(blog => blog.author === "Mario")}
         title="Mario Blogs"
