@@ -3,12 +3,22 @@ import {useState} from "react";
 const Create = () => {
 
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [body, setBody] = useState('Mario');
+  const [author, setAuthor] = useState('Mario');
+  const [body, setBody] = useState('');
+  const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = {title, body, author};
+    setIsPending(true);
+
+    fetch('http://localhost:8000/blogs', {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(blog)
+    }).then(() => {
+      setIsPending(false);
+    })
   }
 
   return (
@@ -44,9 +54,12 @@ const Create = () => {
             Mario
           </option>
         </select>
-        <button>
+        {!isPending && <button>
           Add Blog
-        </button>
+        </button>}
+        {isPending && <button disabled>
+          Adding Blog...
+        </button>}
       </form>
     </div>
   )
